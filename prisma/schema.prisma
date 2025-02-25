@@ -7,22 +7,34 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum DeliveryStatus {
+  PENDING
+  IN_TRANSIT
+  DELIVERED
+  CANCELLED
+}
+
 enum UserRole {
-  STUDENT
-  INSTRUCTOR
+  CUSTOMER
+  DELIVERYMAN
+  ADMIN
 }
 
 model User {
   id       String   @id @default(uuid())
   name     String
-  email    String   @unique
+  email    String
+  cpf      String   @unique
   password String
-  role     UserRole @default(STUDENT)
+  role     UserRole @default(CUSTOMER)
 
   questions     Question[]
   answers       Answer[]
   comment       Comment[]
   notifications Notification[]
+
+  sentDeliveries DeliveryOrder[] @relation("UserToSent")
+  receivedOrders DeliveryOrder[] @relation("UserToRecipient")
 
   @@map("users")
 }
@@ -103,4 +115,34 @@ model Notification {
   recipient User @relation(fields: [recipientId], references: [id])
 
   @@map("notifications")
+}
+
+model DeliveryOrder {
+  id              String         @id @default(uuid())
+  trackingCode    String         @unique
+  deliveryManId   String
+  recipientId     String
+  status          DeliveryStatus @default(PENDING)
+  pickupAddress   String
+  deliveryAddress String
+  deliveryDate    DateTime?
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  deliveryMan User            @relation("UserToSent", fields: [deliveryManId], references: [id])
+  recipient   User?           @relation("UserToRecipient", fields: [recipientId], references: [id])
+  images      DeliveryImage[]
+
+  @@map("delivery_orders")
+}
+
+model DeliveryImage {
+  id              String   @id @default(uuid())
+  deliveryOrderId String
+  imageUrl        String
+  uploadedAt      DateTime @default(now())
+
+  deliveryOrder DeliveryOrder @relation(fields: [deliveryOrderId], references: [id], onDelete: Cascade)
+
+  @@map("delivery_order_images")
 }
