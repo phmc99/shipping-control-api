@@ -18,6 +18,7 @@ export function makeStudent(
       name: faker.person.fullName(),
       email: faker.internet.email(),
       password: faker.internet.password(),
+      cpf: faker.string.numeric({length: 11}),
       ...override,
     },
     id,

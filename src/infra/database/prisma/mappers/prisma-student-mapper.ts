@@ -9,6 +9,7 @@ export class PrismaStudentMapper {
         name: raw.name,
         email: raw.email,
         password: raw.password,
+        cpf: raw.cpf
       },
       new UniqueEntityID(raw.id),
     )
@@ -20,6 +21,7 @@ export class PrismaStudentMapper {
       name: student.name,
       email: student.email,
       password: student.password,
+      cpf: student.cpf
     }
   }
 }

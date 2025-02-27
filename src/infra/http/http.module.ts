@@ -43,6 +43,8 @@ import { StorageModule } from '../storage/storage.module'
 import { UploadAndCreateAttachmentUseCase } from '@/domain/forum/application/use-cases/upload-and-create-attachment'
 import { ReadNotificationController } from './controllers/read-notification.controller'
 import { ReadNotificationUseCase } from '@/domain/notification/application/use-cases/read-notification'
+import { CreateDeliveryOrderUseCase } from '@/domain/delivery-order/application/use-cases/create-delivery-order'
+import { CreateDeliveryOrderController } from './controllers/create-delivery-order.controller'
 
 @Module({
   imports: [DatabaseModule, CryptographyModule, StorageModule],
@@ -67,6 +69,7 @@ import { ReadNotificationUseCase } from '@/domain/notification/application/use-c
     FetchAnswerCommentsController,
     UploadAttachmentController,
     ReadNotificationController,
+    CreateDeliveryOrderController
   ],
   providers: [
     CreateQuestionUseCase,
@@ -89,6 +92,7 @@ import { ReadNotificationUseCase } from '@/domain/notification/application/use-c
     FetchAnswerCommentsUseCase,
     UploadAndCreateAttachmentUseCase,
     ReadNotificationUseCase,
+    CreateDeliveryOrderUseCase
   ],
 })
 export class HttpModule {}

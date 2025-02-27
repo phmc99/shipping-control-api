@@ -19,6 +19,8 @@ import { PrismaAttachmentsRepository } from './prisma/repositories/prisma-attach
 import { PrismaNotificationsRepository } from './prisma/repositories/prisma-notifications-repository'
 import { NotificationsRepository } from '@/domain/notification/application/repositories/notifications-repository'
 import { CacheModule } from '../cache/cache.module'
+import { DeliveryOrderRepository } from '@/domain/delivery-order/application/repositories/delivery-order-repository'
+import { PrismaDeliveryOrdersRepository } from './prisma/repositories/prisma-delivery-orders-repository'
 
 @Module({
   imports: [CacheModule],
@@ -60,6 +62,10 @@ import { CacheModule } from '../cache/cache.module'
       provide: NotificationsRepository,
       useClass: PrismaNotificationsRepository,
     },
+    {
+      provide: DeliveryOrderRepository,
+      useClass: PrismaDeliveryOrdersRepository,
+    },
   ],
   exports: [
     PrismaService,
@@ -72,6 +78,7 @@ import { CacheModule } from '../cache/cache.module'
     AnswerAttachmentsRepository,
     AttachmentsRepository,
     NotificationsRepository,
+    DeliveryOrderRepository
   ],
 })
 export class DatabaseModule {}

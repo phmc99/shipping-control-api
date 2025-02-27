@@ -4,6 +4,7 @@ import { Injectable } from '@nestjs/common'
 import { DeliveryOrderRepository } from '../repositories/delivery-order-repository'
 import { DeliveryStatus } from '@prisma/client'
 import { DeliveryOrderEntity } from '../../enterprise/entities/delivery-oder'
+import { randomUUID } from 'crypto'
 
 interface CreateDeliveryOrderUseCaseRequest {
   deliveryManId: string;
@@ -35,7 +36,7 @@ export class CreateDeliveryOrderUseCase {
       status: DeliveryStatus.PENDING,
       pickupAddress,
       deliveryAddress,
-      trackingCode: undefined,
+      trackingCode: randomUUID(),
       deliveryDate: undefined
     });
 

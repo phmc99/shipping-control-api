@@ -5,6 +5,7 @@ export interface StudentProps {
   name: string
   email: string
   password: string
+  cpf: string
 }
 
 export class Student extends Entity<StudentProps> {
@@ -18,6 +19,10 @@ export class Student extends Entity<StudentProps> {
 
   get password() {
     return this.props.password
+  }
+
+  get cpf() {
+    return this.props.cpf
   }
 
   static create(props: StudentProps, id?: UniqueEntityID) {

@@ -9,6 +9,7 @@ interface RegisterStudentUseCaseRequest {
   name: string
   email: string
   password: string
+  cpf: string
 }
 
 type RegisterStudentUseCaseResponse = Either<
@@ -29,6 +30,7 @@ export class RegisterStudentUseCase {
     name,
     email,
     password,
+    cpf
   }: RegisterStudentUseCaseRequest): Promise<RegisterStudentUseCaseResponse> {
     const studentWithSameEmail =
       await this.studentsRepository.findByEmail(email)
@@ -42,6 +44,7 @@ export class RegisterStudentUseCase {
     const student = Student.create({
       name,
       email,
+      cpf,
       password: hashedPassword,
     })
 

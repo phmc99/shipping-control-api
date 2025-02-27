@@ -29,7 +29,7 @@ describe('Create Account (E2E)', () => {
 
     expect(response.statusCode).toBe(201)
 
-    const userOnDatabase = await prisma.user.findUnique({
+    const userOnDatabase = await prisma.user.findFirst({
       where: {
         email: 'johndoe@example.com',
       },
